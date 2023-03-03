@@ -29,7 +29,7 @@ def is_odd(input_list):
 
 # %%
 def element_wise_sum(input_list_1, input_list_2):
-    return(sum(input_list_1 + input_list_2))
+    return [sum(n) for n in zip(input_list_1, input_list_2)]
 
 # %%
 #Create a function that accepts a dictionary and returns its items as a list of tuples
