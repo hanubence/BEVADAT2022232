@@ -14,10 +14,10 @@ def round_array(l: np.array, n: int = 2) -> np.array:
     return np.round(l, n)
 
 def bool_array(l: np.array) -> np.array:
-    return l == 1
+    return np.array(l, dtype=bool)
 
 def invert_bool_array(l: np.array) -> np.array:
-    return l == 0
+    return ~np.array(l, dtype=bool)
 
 def flatten(l: np.array) -> np.array:
     return l.flatten()
