@@ -155,7 +155,8 @@ def list_days(start: str, end: str) -> np.array:
 # Írj egy fügvényt ami vissza adja az aktuális dátumot az alábbi formában: YYYY-MM-DD
 # Be:
 # Ki: 2017-03-24 
-def current_date() -> str:
+# get_act_date()
+def get_act_date() -> np.datetime64:
     return np.datetime64('today')
 
 # %%
