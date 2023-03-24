@@ -23,9 +23,6 @@ függvény neve: csv_to_df
 # %%
 def csv_to_df(path: str) -> pd.core.frame.DataFrame:
     return pd.read_csv(path)
-
-df = csv_to_df('StudentsPerformance.csv')
-
 # %%
 '''
 Készíts egy függvényt, ami egy DataFrame-et vár paraméterként, 
