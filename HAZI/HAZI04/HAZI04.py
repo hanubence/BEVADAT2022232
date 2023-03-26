@@ -205,10 +205,6 @@ def writing_hist(idf: pd.core.frame.DataFrame):
 
     return fig
 
-ff = writing_hist(df)
-
-ff.show()
-
 # %%
 ''' 
 Készíts egy függvényt, ami a bemeneti Dataframe adatai alapján elkészít egy olyan kördiagramot,
