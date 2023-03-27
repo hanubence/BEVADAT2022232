@@ -23,6 +23,7 @@ függvény neve: csv_to_df
 # %%
 def csv_to_df(path: str) -> pd.core.frame.DataFrame:
     return pd.read_csv(path)
+
 # %%
 '''
 Készíts egy függvényt, ami egy DataFrame-et vár paraméterként, 
@@ -86,7 +87,7 @@ függvény neve: average_scores
 # %%
 def average_score(idf: pd.core.frame.DataFrame) -> pd.core.frame.DataFrame:
     df = idf.copy()
-    return df.groupby('parental level of education')[['math score', 'reading score', 'writing score']].mean()
+    return df.groupby('parental level of education').mean()[['math score', 'reading score', 'writing score']]
 
 # %%
 '''
@@ -141,9 +142,19 @@ függvény neve: add_grade
 
 # %%
 def add_grade(idf: pd.core.frame.DataFrame) -> pd.core.frame.DataFrame:
-    df = idf.copy()
-    df['grade'] = df[['math score','reading score', 'reading score']].sum(axis = 1) / 300
-    df['grade'] = df['grade'].apply(lambda x: 'A' if x >= 0.9 else 'B' if x >= 0.8 else 'C' if x >= 0.7 else 'D' if x >= 0.6 else 'F')
+    df=idf.copy()
+    df['percent'] = (df['math score'] + df['reading score'] + df['writing score']) / 300
+    conditions = [
+        df['percent'] < 0.6,
+        df['percent'] < 0.7,
+        df['percent'] < 0.8,
+        df['percent'] < 0.9,
+        df['percent'] <= 1.0
+    ]
+    grades = ['F', 'D', 'C', 'B', 'A']
+    df['grade'] = pd.Series(np.select(conditions, grades))
+    df = df.drop('percent', axis=1)
+    
     return df
 
 # %%
@@ -205,6 +216,10 @@ def writing_hist(idf: pd.core.frame.DataFrame):
 
     return fig
 
+ff = writing_hist(df)
+
+ff.show()
+
 # %%
 ''' 
 Készíts egy függvényt, ami a bemeneti Dataframe adatai alapján elkészít egy olyan kördiagramot,
@@ -222,13 +237,12 @@ függvény neve: ethnicity_pie_chart
 
 # %%
 def ethnicity_pie_chart(idf: pd.core.frame.DataFrame):
-    df = idf.copy()
+    counts = idf['race/ethnicity'].value_counts()
 
+    percentages = [count/len(idf)*100 for count in counts]
+    labels = counts.index.tolist()
     fig, ax = plt.subplots()
-
-    ax.pie(df['race/ethnicity'].value_counts(), labels=df['race/ethnicity'].value_counts().index, autopct='%1.f%%')
+    ax.pie(percentages, labels=labels, autopct='%1.1f%%')
     ax.set_title('Proportion of Students by Race/Ethnicity')
 
     return fig
-
-
