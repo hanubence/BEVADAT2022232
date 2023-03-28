@@ -17,7 +17,7 @@ class KNNClassifier:
     def set_k(self, value):
         self._y = value
 
-    k = property(
+    k_neighbors = property(
         get_k,
         set_k
     )
@@ -57,15 +57,3 @@ class KNNClassifier:
     def plot_confusion_matrix(self):
         conf_matrix = confusion_matrix(self.y_test, self.y_preds)
         sns.heatmap(conf_matrix,annot=True) 
-
-
-kn = KNNClassifier(5, 0.2)
-
-x,y = kn.load_csv('iris.csv')
-
-kn.train_test_split(x,y)
-kn.predict(kn.x_test)
-
-kn.plot_confusion_matrix()
-
-print(kn.accuracy())
