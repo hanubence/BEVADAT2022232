@@ -11,16 +11,9 @@ class KNNClassifier:
         self.k = k
         self.test_split_ratio = test_split_ratio
 
-    def get_k(self):
-        return self._y
-    
-    def set_k(self, value):
-        self._y = value
-
-    k_neighbors = property(
-        get_k,
-        set_k
-    )
+    @property
+    def k_neighbors(self) -> int:
+        return self.k
 
     @staticmethod
     def load_csv(csv_path:str) ->Tuple[np.ndarray,np.ndarray]:
@@ -55,5 +48,5 @@ class KNNClassifier:
         return true_positive / len(self.y_test) * 100
     
     def plot_confusion_matrix(self):
-        conf_matrix = confusion_matrix(self.y_test, self.y_preds)
-        sns.heatmap(conf_matrix,annot=True) 
+        return confusion_matrix(self.y_test, self.y_preds)
+        
