@@ -1,0 +1,24 @@
+1. 
+Betöltjük a kapott csv fájlt. Felbontjuk features illetve class oszlopok mentén.
+Végezhetünk tisztítást is, ez most nem volt követelmény. Például a 2-5 oszlopoknál a 0 értékeket az oszlop medián vagy átlag értékére cserélhetnénk,
+ez csökkenti az adathalmaz értékeinek szórását.
+
+2.
+Felbontjuk az adatainkat egy training és egy teszt halmazra. A teszt adathalmaz kb 20% a teljes adathalmazunknak.
+Lényeges a felosztás aránya, hogy megfelelelő mennyiségű adaton tudjunk tanítani, majd tesztelni is.
+
+3.
+Az euclidean függvénnyel minden megállapítjuk a vizsgált teszt sor mértani távolságát minden training sorunkhoz képest.
+Így térképezzük fel, hogy mely sorokhoz "hasonlít" leginkább
+
+4.
+A predict fügvénynél minden teszt sorunkra meghívjuk a távolság függvényét, növekvő sorrendbe rendezzük a kapott távokat, és vesszük a
+K legközelebb lévő szomszéd class móduszát. Nagyobb K esetén tovább tart a számítás, de rezisztensebb a kiugró/extrém adatok ellen.
+
+5.
+Az accuracy fügvénynél megállapítjuk hogy a jósolt kimenetelek közül hány egyezik a testként leválasztott valódi eredményekkel.
+Ebből százalékot számítunk
+
+6.
+A best_k függvény szimplán 1-20-as K értékig végig futtatja a predikciót, és kiválasztja azt amellyel a legjobb eredményt érte el.
+A KNN algoritmus természetéből (módusz) kifolyólag szerencsésebb páratlan számot K-nak választani.
