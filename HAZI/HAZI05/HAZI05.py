@@ -21,9 +21,10 @@ class KNNClassifier:
         return x, y
 
     def train_test_split(self, features:pd.DataFrame, labels:pd.DataFrame) -> None:
-        test_size = int(len(features) * self.test_split_ratio)
-        train_size = len(features) - test_size
-        assert len(features) == test_size + train_size, "Size mismatch!"
+        test_size = int(features.shape[0] * self.test_split_ratio)
+        train_size = features.shape[0] - test_size
+
+        assert features.shape[0] == test_size + train_size, "Size mismatch!"
 
         self.x_train, self.y_train = features.iloc[:train_size,:],labels[:train_size]
         self.x_test, self.y_test = features.iloc[train_size:train_size+test_size,:], labels[train_size:train_size + test_size]
@@ -54,9 +55,9 @@ class KNNClassifier:
         y_test_local = self.y_test.copy()
         y_test_local.reset_index(drop=True, inplace=True)
         true_positive = int((y_test_local == self.y_preds).sum())
-        return true_positive / y_test_local.size * 100
+        return true_positive / y_test_local.shape[0] * 100
     
-    def best_k(self) -> float:
+    def best_k(self) -> Tuple[int, float]:
         old_k = self.k
         results = []
         for k in range(1,21):
@@ -68,7 +69,8 @@ class KNNClassifier:
         self.k = old_k
         return max(results, key=lambda x:x[1])
 
-    def plot_confusion_matrix(self):
+    def confusion_matrix(self):
+        print(self.y_test, self.y_preds)
         return confusion_matrix(self.y_test, self.y_preds)
         
 
@@ -79,7 +81,7 @@ class KNNClassifier:
 #kn.train_test_split(x,y)
 #kn.predict(kn.x_test)
 
-#kn.plot_confusion_matrix()
+#kn.confusion_matrix()
 
 #print(kn.accuracy())
 #print(kn.best_k())
