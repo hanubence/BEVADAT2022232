@@ -34,7 +34,7 @@ class KNNClassifier:
     def euclidean(self, element_of_x:np.ndarray) -> np.ndarray:
         return np.sqrt(np.sum((self.x_train - element_of_x)**2,axis=1))
     
-    def predict(self, x_test:np.ndarray) -> np.ndarray:
+    def predict(self, x_test:np.ndarray) -> None:
         labels_pred = []
         for x_test_element in x_test:
             distances = self.euclidean(x_test_element)
@@ -47,6 +47,6 @@ class KNNClassifier:
         true_positive = (self.y_test == self.y_preds).sum()
         return true_positive / len(self.y_test) * 100
     
-    def plot_confusion_matrix(self):
+    def plot_confusion_matrix(self) -> np.ndarray:
         return confusion_matrix(self.y_test, self.y_preds)
         
