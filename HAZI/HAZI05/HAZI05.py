@@ -70,7 +70,7 @@ class KNNClassifier:
         self.k = old_k
         return max(results, key=lambda x:x[1])
 
-    def confusion_matrix(self):
+    def plot_confusion_matrix(self):
         return confusion_matrix(self.y_test, self.y_preds)
         
 
