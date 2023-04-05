@@ -55,7 +55,7 @@ class KNNClassifier:
         y_test_local = self.y_test.copy()
         y_test_local.reset_index(drop=True, inplace=True)
 
-        true_positive = (y_test_local['Outcome'] == self.y_preds['Outcome']).sum()
+        true_positive = (y_test_local.iloc[:,0] == self.y_preds.iloc[:,0]).sum()
         return true_positive / y_test_local.shape[0] * 100
     
     def best_k(self) -> Tuple[int, float]:
