@@ -54,7 +54,8 @@ class KNNClassifier:
     def accuracy(self) -> float:
         y_test_local = self.y_test.copy()
         y_test_local.reset_index(drop=True, inplace=True)
-        true_positive = int((y_test_local == self.y_preds).sum())
+
+        true_positive = (y_test_local['Outcome'] == self.y_preds['Outcome']).sum()
         return true_positive / y_test_local.shape[0] * 100
     
     def best_k(self) -> Tuple[int, float]:
@@ -73,16 +74,14 @@ class KNNClassifier:
         return confusion_matrix(self.y_test, self.y_preds)
         
 
-#kn = KNNClassifier(5, 0.1)
+# kn = KNNClassifier(5, 0.1)
 
-#x,y = kn.load_csv('diabetes.csv')
+# x,y = kn.load_csv('diabetes.csv')
 
-#print(y)
+# kn.train_test_split(x,y)
+# kn.predict(kn.x_test)
 
-#kn.train_test_split(x,y)
-#kn.predict(kn.x_test)
+# kn.confusion_matrix()
 
-#kn.confusion_matrix()
-
-#print(kn.accuracy())
-#print(kn.best_k())
+# print(kn.accuracy())
+# print(kn.best_k())
