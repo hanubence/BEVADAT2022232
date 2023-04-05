@@ -17,7 +17,7 @@ class KNNClassifier:
     def load_csv(csv_path:str) ->Tuple[pd.DataFrame, pd.DataFrame]:
         dataset = pd.read_csv(csv_path, delimiter=',')
         dataset = dataset.sample(frac=1, random_state=42).reset_index(drop=True)
-        x,y = pd.DataFrame(dataset.iloc[:,:8]), pd.DataFrame(dataset.iloc[:,-1])
+        x,y = pd.DataFrame(dataset.iloc[:,:-1]), pd.DataFrame(dataset.iloc[:,-1])
         return x, y
 
     def train_test_split(self, features:pd.DataFrame, labels:pd.DataFrame) -> None:
@@ -70,13 +70,14 @@ class KNNClassifier:
         return max(results, key=lambda x:x[1])
 
     def confusion_matrix(self):
-        print(self.y_test, self.y_preds)
         return confusion_matrix(self.y_test, self.y_preds)
         
 
 #kn = KNNClassifier(5, 0.1)
 
 #x,y = kn.load_csv('diabetes.csv')
+
+#print(y)
 
 #kn.train_test_split(x,y)
 #kn.predict(kn.x_test)
