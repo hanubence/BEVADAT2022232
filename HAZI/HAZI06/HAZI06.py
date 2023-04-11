@@ -1,3 +1,11 @@
+from NJCleaner import NJCLeaner
+from DecisionTreeClassifier import DecisionTreeClassifier
+
+cleaner = NJCLeaner('2018_03.csv')
+
+cleaner.prep_df()
+
+
 """
 1. Értelmezd az adatokat!!!
 
