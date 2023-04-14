@@ -1,9 +1,39 @@
-from NJCleaner import NJCLeaner
+import numpy as np
+import pandas as pd
+import time
+
+from NJCleaner import NJCleaner
 from DecisionTreeClassifier import DecisionTreeClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score
 
-cleaner = NJCLeaner('2018_03.csv')
-
+cleaner = NJCleaner('2018_03.csv')
 cleaner.prep_df()
+
+col_name = ['stop_sequence', 'from_id', 'to_id', 'status', 'line', 'type', 'day', 'part_of-day', 'delay']
+data = pd.read_csv('data/NJ.csv', skiprows=1, header=None, names=col_name)
+
+X = data.iloc[:, :-1].values
+Y = data.iloc[:, -1].values.reshape(-1, 1)
+
+X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=.2, random_state=41)
+
+results = []
+
+
+for samples in [2, 6, 10, 50, 100]:
+    for depth in [2, 3, 5, 7, 10]:
+        start = time.time()
+        classifier = DecisionTreeClassifier(min_samples_split=samples, max_depth=depth)
+        classifier.fit(X_train, Y_train)
+
+        Y_pred = classifier.predict(X_test)
+        accuracy = accuracy_score(Y_test, Y_pred)
+        end = time.time()
+        print("min sample: ", samples, "depth: ", depth, "acc: ", accuracy, " TIME: ", (end-start), "sec")
+        results.append((samples, depth, accuracy))
+
+print(max(results, key=lambda x:x[2]))
 
 
 """

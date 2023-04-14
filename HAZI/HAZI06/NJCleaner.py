@@ -1,6 +1,6 @@
 import pandas as pd
 
-class NJCLeaner():
+class NJCleaner():
 
     def __init__(self, path:str) -> None:
         self.data = pd.read_csv(path)
