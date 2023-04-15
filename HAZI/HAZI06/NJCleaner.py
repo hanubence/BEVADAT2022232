@@ -26,7 +26,7 @@ class NJCleaner():
         times = [0, 4, 8, 12, 16, 20, 24]
         labels = ['late_night', 'early_morning', 'morning', 'afternoon', 'evening', 'night']
 
-        df['part_of_day'] = pd.cut(pd.to_datetime(df['scheduled_time']).dt.hour, bins=times, labels=labels, include_lowest=True)
+        df['part_of_the_day'] = pd.cut(pd.to_datetime(df['scheduled_time']).dt.hour, bins=times, labels=labels, include_lowest=True)
         df.drop(columns=['scheduled_time'], inplace=True)
         return df
     
