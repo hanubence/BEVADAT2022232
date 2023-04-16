@@ -16,13 +16,12 @@ data = pd.read_csv('data/NJ.csv', skiprows=1, header=None, names=col_name)
 X = data.iloc[:, :-1].values
 Y = data.iloc[:, -1].values.reshape(-1, 1)
 
-X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=.2, random_state=41)
+X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=.15, random_state=41)
 
+"""
 results = []
-
-
-for samples in [2, 6, 10, 50, 100]:
-    for depth in [2, 3, 5, 7, 10]:
+for samples in [10, 25, 35, 40, 50]:
+    for depth in [6, 7]:
         start = time.time()
         classifier = DecisionTreeClassifier(min_samples_split=samples, max_depth=depth)
         classifier.fit(X_train, Y_train)
@@ -34,9 +33,43 @@ for samples in [2, 6, 10, 50, 100]:
         results.append((samples, depth, accuracy))
 
 print(max(results, key=lambda x:x[2]))
+"""
+start = time.time()
+min_samples_split = 100
+max_depth = 6
+classifier = DecisionTreeClassifier(min_samples_split=min_samples_split, max_depth=max_depth)
+classifier.fit(X_train, Y_train)
+Y_pred = classifier.predict(X_test)
+accuracy = accuracy_score(Y_test, Y_pred)
+end = time.time()
+print("min sample: ", min_samples_split, "depth: ", max_depth, "acc: ", accuracy, " TIME: ", (end-start), "sec")
 
 
 """
+4.
+
+A túl mély fák errorokhoz vezettek, így nagyjából 6-7 mélységig próbálkoztam. Ekkora adathalmaznál véleményem szerint még nem vezet overfittinghez.
+A nagyobb mélység ennek ellenére jobb pontosságot eredményezett
+A min samples split paraméter ~100 körüli értékkel adta a legjobb eredményt.
+
+min sample:  2      depth:  5       acc:  0.7863  TIME:  115.49 sec
+min sample:  2      depth:  7       acc:  0.7885  TIME:  143.12 sec
+min sample:  100    depth:  2       acc:  0.7823  TIME:  74.60 sec
+min sample:  100    depth:  4       acc:  0.7852  TIME:  107.45 sec
+min sample:  100    depth:  5       acc:  0.7863  TIME:  122.29 sec
+min sample:  100    depth:  6       acc:  0.7909  TIME:  132.14 sec
+min sample:  3000   depth:  6       acc:  0.7823  TIME:  120.13 sec
+min sample:  500    depth:  6       acc:  0.7886  TIME:  128.52 sec
+min sample:  10     depth:  6       acc:  0.7903  TIME:  129.69 sec
+min sample:  10     depth:  7       acc:  0.7885  TIME:  139.94 sec
+min sample:  25     depth:  6       acc:  0.7903  TIME:  129.73 sec
+min sample:  25     depth:  7       acc:  0.7887  TIME:  140.16 sec
+min sample:  35     depth:  6       acc:  0.7904  TIME:  129.42 sec
+min sample:  35     depth:  7       acc:  0.7888  TIME:  139.95 sec
+min sample:  40     depth:  6       acc:  0.7904  TIME:  133.43 sec
+min sample:  40     depth:  7       acc:  0.7886  TIME:  164.16 sec
+min sample:  50     depth:  6       acc:  0.7904  TIME:  148.78 sec
+
 1.  Értelmezd az adatokat!!!
     A feladat megoldásához használd a NJ transit + Amtrack csv-t a moodle-ból.
     A NJ-60k az a megoldott. Azt fogom használni a modellek teszteléséhez, illetve össze tudod hasonlítani az eredményedet.    
@@ -88,4 +121,6 @@ HAZI-
 ## Ha a 4. feladat hiányzik, akkor nem tudjuk elfogadni a házit ##
 ##                                                              ##
 ##################################################################
+
+
 """
