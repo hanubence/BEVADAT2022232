@@ -16,7 +16,7 @@ data = pd.read_csv('data/NJ.csv', skiprows=1, header=None, names=col_name)
 X = data.iloc[:, :-1].values
 Y = data.iloc[:, -1].values.reshape(-1, 1)
 
-X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=.15, random_state=41)
+X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.2, random_state=41)
 
 """
 results = []
