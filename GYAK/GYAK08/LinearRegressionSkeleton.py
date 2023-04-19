@@ -5,8 +5,6 @@ from sklearn.datasets import load_iris
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 
-from matplotlib import pyplot as plt
-
 
 class LinearRegression:
     def __init__(self, epochs: int = 1000, lr: float = 0.0001):
@@ -22,7 +20,7 @@ class LinearRegression:
         self.X = df['petal width (cm)'].values
         self.y = df['sepal length (cm)'].values
 
-        self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+        self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(self.X, self.y, test_size=0.2, random_state=42)
 
     def fit(self, X: np.array, y:np.array):
 
