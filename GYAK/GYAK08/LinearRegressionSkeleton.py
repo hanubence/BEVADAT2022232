@@ -22,9 +22,9 @@ class LinearRegression:
         self.X = df['petal width (cm)'].values
         self.y = df['sepal length (cm)'].values
 
-    def fit(self, X: np.array, y:np.array):
-
         self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+    def fit(self, X: np.array, y:np.array):
 
         n = float(len(self.X_train)) # Number of elements in X
         
@@ -42,8 +42,4 @@ class LinearRegression:
             self.c = self.c + self.lr * D_c  # Update c
 
     def predict(self, X):
-        y_pred = self.m*X + self.c
-
-        plt.scatter(X, self.y_test)
-        plt.plot([min(X), max(X)], [min(y_pred), max(y_pred)], color='red') # predicted
-        plt.show()
+        return self.m*X + self.c
