@@ -19,7 +19,7 @@ függvény neve: load_iris_data
 '''
 
 # %%
-def load_iris_data() -> sklearn.utils.Bunch:
+def load_iris_data():
     return load_iris()
 
 # %%
@@ -101,7 +101,7 @@ függvény neve: train_linear_regression
 '''
 
 # %%
-def train_linear_regression(X_train, y_train) -> sklearn.linear_model._base.LinearRegression:
+def train_linear_regression(X_train, y_train):
     model = LinearRegression()
     model.fit(X_train, y_train)
 
