@@ -17,7 +17,7 @@ class KMeansOnDigits():
     def predict(self):
         self.clusters = KMeans(n_clusters=self.n_clusters, n_init=10).fit_predict(self.digits.data, self.digits.target)
 
-    def get_label(self):
+    def get_labels(self):
         self.labels = np.zeros_like(self.clusters)
         for i in range(10):
             mask = self.clusters == i
