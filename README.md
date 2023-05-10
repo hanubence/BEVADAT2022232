@@ -1,2 +1,1 @@
-# BEVADAT 2022/23/2
-### N3U1P9
+# Classwork Repository for "Intro to DataScience" Course at Óbuda University 2022/23/2
